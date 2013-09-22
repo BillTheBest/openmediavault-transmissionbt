@@ -49,7 +49,7 @@ Desktop.ini
 # Mac crap
 .DS_Store
 
-# Deb package stuff
+# Files created by building the deb package
 debian/openmediavault-transmissionbt
 debian/files
 debian/*.debhelper.log
