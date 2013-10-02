@@ -193,7 +193,9 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
             }
         });
 
-        me.doReload();
+        me.on('activate', function() {
+                me.doReload();
+        });
 
         me.callParent(arguments);
     },
@@ -204,11 +206,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         if (success) {
             if (!response[0].running)  {
                 me.autoReload = false;
-
-                if (!Ext.isEmpty(me.reloadTask)) {
-                    Ext.TaskManager.stop(me.reloadTask);
-                    delete me.reloadTask;
-                }
+                me.disableReloadAndButtons();
             } else {
                 me.autoReload = true;
 
@@ -220,22 +218,37 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
                     });
                 }
 
-                me.on("beforedestroy", function(c) {
-                    if (!Ext.isEmpty(me.reloadTask)) {
-                        Ext.TaskManager.stop(me.reloadTask);
-                        delete me.reloadTask;
-                    }
+                me.on("beforedestroy", function() {
+                    me.disableReloadAndButtons();
+                }, me);
+
+                me.on("deactivate", function() {
+                    me.disableReloadAndButtons();
                 }, me);
 
                 if (me.store !== null)
                     me.store.reload();
 
+                me.toggleAddTorrentButtons(true);
                 me.onSelectionChange();
             }
         } else {
             OMV.MessageBox.error(null, response);
+            me.disableReloadAndButtons();
         }
 
+    },
+
+    disableReloadAndButtons : function() {
+        var me = this;
+
+        if (!Ext.isEmpty(me.reloadTask)) {
+            Ext.TaskManager.stop(me.reloadTask);
+            delete me.reloadTask;
+        }
+
+        me.toggleAddTorrentButtons(false);
+        me.store.removeAll();
     },
 
     doReload : function() {
@@ -380,6 +393,20 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         // passed by reference
         me.toggleButtons();
         me.toggleContextMenu();
+    },
+
+    toggleAddTorrentButtons : function(enable) {
+        var me = this;
+        addUrlButton = me.queryById(me.getId() + "-add-url");
+        uploadButton = me.queryById(me.getId() + "-upload");
+
+        if (enable) {
+            addUrlButton.enable();
+            uploadButton.enable();
+        } else {
+            addUrlButton.disable();
+            uploadButton.disable();
+        }
     },
 
     toggleButtons : function(records) {
