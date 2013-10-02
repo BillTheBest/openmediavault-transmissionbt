@@ -1,0 +1,4 @@
+etc/*                         etc
+usr/share/openmediavault/*    usr/share/openmediavault
+usr/share/php/transmission/*  usr/share/php/transmission
+var/www/openmediavault/*      var/www/openmediavault

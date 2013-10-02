@@ -203,6 +203,9 @@ case "$1" in
     	omv_config_add_element "/config/services/transmissionbt/modules/filesandlocations/paths" "watch" "${object}" true
     fi
 
+    # Restart rsyslog
+    service rsyslog restart
+
     echo "Add debian-transmission user to group: users"
     usermod -G users debian-transmission
 

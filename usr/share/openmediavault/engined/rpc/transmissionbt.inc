@@ -1,19 +1,20 @@
 <?php
 
 /**
- * Copyright (C) 2013 OpenMediaVault Plugin Developers
- * Copyright (c) 2012 Marcel Beck
- * 
+ * Copyright (C) 2009-2012 Volker Theile <volker.theile@openmediavault.org>
+ * Copyright (C) 2011-2012 Marcel Beck <marcel.beck@mbeck.org>
+ * Copyright (C)      2013 OpenMediaVault Plugin Developers
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -61,10 +62,10 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $this->registerMethod("queueMove");
         $this->registerMethod("addUrl");
     }
-    
+
     /**
      * Get general settings object
-     * 
+     *
      * @throws E_CONFIG_GET_OBJECT_FAILED
      */
     public function getSettings($params, $context)
@@ -80,7 +81,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $xpath = "//services/transmissionbt";
         $object = $xmlConfig->get($xpath);
         if (is_null($object))
-            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, 
+            throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
                 $xpath);
 
         // Modify result object
@@ -102,13 +103,13 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $object['cache-size-mb']                    = intval($object['cache-size-mb']);
         $object['script-torrent-done-enabled']      = boolval($object['script-torrent-done-enabled']);
         unset($object['modules']);
-        
+
         return $object;
     }
 
     /**
      * Set general settings object
-     * 
+     *
      * @throws E_CONFIG_GET_OBJECT_FAILED
      * @throws E_CONFIG_SET_OBJECT_FAILED
      * @throws E_CONFIG_SAVE_FAILED
@@ -116,12 +117,12 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
     public function setSettings($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -150,15 +151,15 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "script-torrent-done-enabled":{"type":"boolean"}
             }
         }');
-        
+
         // Get existing configuration object
         $xpath = "//services/transmissionbt";
         $oldObject = $xmlConfig->get($xpath);
-        
+
         if (is_null($oldObject))
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
-        
-        // If no directory for downloads is set 
+
+        // If no directory for downloads is set
         // and the user is trying to enable the
         // service, abort the save.
         $downloadFolderRef = $oldObject['modules']
@@ -170,66 +171,66 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
 
         if ($params['enable'] === true && empty($downloadFolderRef))
             throw new OMVException(OMVErrorMsg::E_CONFIG_SAVE_FAILED, $msg);
-        
+
         // Prepare configuration data
         $object = array(
-            "enable" => array_boolval($params, 'enable'), 
-            "pexenabled" => array_boolval($params, 'pexenabled'), 
-            "dhtenabled" => array_boolval($params, 'dhtenabled'), 
-            "encryption" => $params['encryption'], 
-            "rpcurl" => '/' . $params['rpcurl'] . '/', 
-            "rpcport" => $params['rpcport'], 
-            "rpcauthenticationrequired" => array_boolval($params, 'rpcauthenticationrequired'), 
-            "rpcusername" => $params['rpcusername'], 
-            "rpcpassword" => $params['rpcpassword'], 
-            "blocklistenabled" => array_boolval($params, 'blocklistenabled'), 
-            "blocklistsyncenabled" => array_boolval($params, 'blocklistsyncenabled'), 
-            "blocklistsyncfrequency" => $params['blocklistsyncfrequency'], 
-            "blocklisturl" => $params['blocklisturl'], 
-            "modules" => isset($oldObject['modules']) ? $oldObject['modules'] : array(), 
-            "lazy-bitfield-enabled" => array_boolval($params, 'lazy-bitfield-enabled'), 
-            "umask" => $params['umask'], 
-            "lpd-enabled" => array_boolval($params, 'lpd-enabled'), 
-            "scrape-paused-torrents-enabled" => array_boolval($params, 'scrape-paused-torrents-enabled'), 
-            "utp-enabled" => array_boolval($params, 'utp-enabled'), 
-            "message-level" => $params['message-level'], 
-            "cache-size-mb" => $params['cache-size-mb'], 
-            "script-torrent-done-enabled" => array_boolval($params, 'script-torrent-done-enabled'), 
-            "script-torrent-done-filename" => $params['script-torrent-done-filename'], 
+            "enable" => array_boolval($params, 'enable'),
+            "pexenabled" => array_boolval($params, 'pexenabled'),
+            "dhtenabled" => array_boolval($params, 'dhtenabled'),
+            "encryption" => $params['encryption'],
+            "rpcurl" => '/' . $params['rpcurl'] . '/',
+            "rpcport" => $params['rpcport'],
+            "rpcauthenticationrequired" => array_boolval($params, 'rpcauthenticationrequired'),
+            "rpcusername" => $params['rpcusername'],
+            "rpcpassword" => $params['rpcpassword'],
+            "blocklistenabled" => array_boolval($params, 'blocklistenabled'),
+            "blocklistsyncenabled" => array_boolval($params, 'blocklistsyncenabled'),
+            "blocklistsyncfrequency" => $params['blocklistsyncfrequency'],
+            "blocklisturl" => $params['blocklisturl'],
+            "modules" => isset($oldObject['modules']) ? $oldObject['modules'] : array(),
+            "lazy-bitfield-enabled" => array_boolval($params, 'lazy-bitfield-enabled'),
+            "umask" => $params['umask'],
+            "lpd-enabled" => array_boolval($params, 'lpd-enabled'),
+            "scrape-paused-torrents-enabled" => array_boolval($params, 'scrape-paused-torrents-enabled'),
+            "utp-enabled" => array_boolval($params, 'utp-enabled'),
+            "message-level" => $params['message-level'],
+            "cache-size-mb" => $params['cache-size-mb'],
+            "script-torrent-done-enabled" => array_boolval($params, 'script-torrent-done-enabled'),
+            "script-torrent-done-filename" => $params['script-torrent-done-filename'],
         );
-        
+
         // Set configuration object
         if ($xmlConfig->replace($xpath, $object) === false)
             throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED);
-        
+
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(OMV_NOTIFY_MODIFY, "org.openmediavault.services.transmissionbt", $object);
-        
+
         return $object;
     }
 
     /**
      * Get locations and files settings object
-     * 
+     *
      * @throws E_CONFIG_GET_OBJECT_FAILED
      */
     public function getFilesAndLocations($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Get configuration object
         $xpath = "//services/transmissionbt/modules/filesandlocations";
         $object = $xmlConfig->get($xpath);
-        
+
         if (is_null($object))
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
-        
+
         // Modify result data
         // Locations
         $object['download-sharedfolderref'] = $object['paths']['download']['sharedfolderref'];
@@ -248,24 +249,24 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $object['rename-partial-files'] = boolval($object['rename-partial-files']);
         $object['start-added-torrents'] = boolval($object['start-added-torrents']);
         $object['trash-original-torrent-files'] = boolval($object['trash-original-torrent-files']);
-        
+
         return $object;
     }
 
     /**
      * Set locations and files settings object
-     * 
+     *
      * @throws E_CONFIG_SET_OBJECT_FAILED
      */
     public function setFilesAndLocations($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -284,32 +285,32 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "trash-original-torrent-files":{"type":"boolean"}
             }
         }');
-        
+
         // Prepare configuration data
         $object = array(
             // Locations
             'paths' => array(
                 'download' => array(
-                    'sharedfolderref' => $params['download-sharedfolderref'], 
-                    'dir' => $params['download-dir'], 
-                ), 
+                    'sharedfolderref' => $params['download-sharedfolderref'],
+                    'dir' => $params['download-dir'],
+                ),
                 'incomplete' => array(
-                    'enabled' => array_boolval($params, 'incomplete-dir-enabled'), 
-                    'sharedfolderref' => $params['incomplete-sharedfolderref'], 
-                    'dir' => $params['incomplete-dir'], 
-                ), 
+                    'enabled' => array_boolval($params, 'incomplete-dir-enabled'),
+                    'sharedfolderref' => $params['incomplete-sharedfolderref'],
+                    'dir' => $params['incomplete-dir'],
+                ),
                 'watch' => array(
-                    'enabled' => array_boolval($params, 'watch-dir-enabled'), 
-                    'sharedfolderref' => $params['watch-sharedfolderref'], 
-                    'dir' => $params['watch-dir'], 
-                ), 
+                    'enabled' => array_boolval($params, 'watch-dir-enabled'),
+                    'sharedfolderref' => $params['watch-sharedfolderref'],
+                    'dir' => $params['watch-dir'],
+                ),
             ),
-            
+
             // Files
-            "preallocation" => $params['preallocation'], 
-            "rename-partial-files" => array_boolval($params, 'rename-partial-files'), 
-            "start-added-torrents" => array_boolval($params, 'start-added-torrents'), 
-            "trash-original-torrent-files" => array_boolval($params, 'trash-original-torrent-files'), 
+            "preallocation" => $params['preallocation'],
+            "rename-partial-files" => array_boolval($params, 'rename-partial-files'),
+            "start-added-torrents" => array_boolval($params, 'start-added-torrents'),
+            "trash-original-torrent-files" => array_boolval($params, 'trash-original-torrent-files'),
         );
 
         // Set configuration object
@@ -320,24 +321,24 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(OMV_NOTIFY_MODIFY, "org.openmediavault.services.transmissionbt", $object);
-        
+
         return $object;
     }
 
     /**
      * Get bandwidth settings object
-     * 
+     *
      * @throws E_CONFIG_GET_OBJECT_FAILED
      */
     public function getBandwidth($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Get configuration object
         $xpath = "//services/transmissionbt/modules/bandwidth";
         $object = $xmlConfig->get($xpath);
@@ -351,7 +352,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $object['speed-limit-up'] = intval($object['speed-limit-up']);
         $object['speed-limit-up-enabled'] = boolval($object['speed-limit-up-enabled']);
         $object['upload-slots-per-torrent'] = intval($object['upload-slots-per-torrent']);
-        
+
         // Turtle Mode
         $object['alt-speed-enabled'] = boolval($object['alt-speed-enabled']);
         $object['alt-speed-up'] = intval($object['alt-speed-up']);
@@ -362,18 +363,18 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
 
     /**
      * Set bandwidth settings object
-     * 
+     *
      * @throws E_CONFIG_SET_OBJECT_FAILED
      */
     public function setBandwidth($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -388,64 +389,64 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "alt-speed-down":{"type":"integer","minimum":0}
             }
         }');
-        
+
         // Prepare configuration data
         $object = array(
             // Speed
-            "speed-limit-down" => $params['speed-limit-down'], 
-            "speed-limit-down-enabled" => array_boolval($params, 'speed-limit-down-enabled'), 
-            "speed-limit-up" => $params['speed-limit-up'], 
-            "speed-limit-up-enabled" => array_boolval($params, 'speed-limit-up-enabled'), 
+            "speed-limit-down" => $params['speed-limit-down'],
+            "speed-limit-down-enabled" => array_boolval($params, 'speed-limit-down-enabled'),
+            "speed-limit-up" => $params['speed-limit-up'],
+            "speed-limit-up-enabled" => array_boolval($params, 'speed-limit-up-enabled'),
             "upload-slots-per-torrent" => $params['upload-slots-per-torrent'],
             // Turtle Mode
-            "alt-speed-enabled" => array_boolval($params, 'alt-speed-enabled'), 
-            "alt-speed-up" => $params['alt-speed-up'], 
-            "alt-speed-down" => $params['alt-speed-down'], 
+            "alt-speed-enabled" => array_boolval($params, 'alt-speed-enabled'),
+            "alt-speed-up" => $params['alt-speed-up'],
+            "alt-speed-down" => $params['alt-speed-down'],
         );
-        
+
         // Set configuration object
         $xpath = "//services/transmissionbt/modules/bandwidth";
-        
-        if ($xmlConfig->replace($xpath, $object) === false) 
+
+        if ($xmlConfig->replace($xpath, $object) === false)
             throw new OMVException(OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED);
 
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(OMV_NOTIFY_MODIFY, "org.openmediavault.services.transmissionbt", $object);
-        
+
         return $object;
     }
 
     /**
      * Get queuing settings object
-     * 
+     *
      * @throws E_CONFIG_GET_OBJECT_FAILED
      */
     public function getQueuing($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Get configuration object
         $xpath = "//services/transmissionbt/modules/queuing";
         $object = $xmlConfig->get($xpath);
-        
+
         if (is_null($object))
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
-        
+
         // Modify result data
         // General
         $object['queue-stalled-enabled'] = boolval($object['queue-stalled-enabled']);
         $object['queue-stalled-minutes'] = intval($object['queue-stalled-minutes']);
-        
+
         // Download
         $object['download-queue-enabled'] = boolval($object['download-queue-enabled']);
         $object['download-queue-size'] = intval($object['download-queue-size']);
-        
+
         // Seed
         $object['seed-queue-enabled'] = boolval($object['seed-queue-enabled']);
         $object['seed-queue-size'] = intval($object['seed-queue-size']);
@@ -455,18 +456,18 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
 
     /**
      * Set queueing settings object
-     * 
+     *
      * @throws E_CONFIG_SET_OBJECT_FAILED
      */
     public function setQueuing($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -479,22 +480,22 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "seed-queue-size":{"type":"integer","minimum":0}
             }
         }');
-        
+
         // Prepare configuration data
         $object = array(
             // General
-            "queue-stalled-enabled" => array_boolval($params, 'queue-stalled-enabled'), 
+            "queue-stalled-enabled" => array_boolval($params, 'queue-stalled-enabled'),
             "queue-stalled-minutes" => $params['queue-stalled-minutes'],
-            
+
             // Download
-            "download-queue-enabled" => array_boolval($params, 'download-queue-enabled'), 
+            "download-queue-enabled" => array_boolval($params, 'download-queue-enabled'),
             "download-queue-size" => $params['download-queue-size'],
-            
+
             // Seed
-            "seed-queue-enabled" => array_boolval($params, 'seed-queue-enabled'), 
-            "seed-queue-size" => $params['seed-queue-size'], 
+            "seed-queue-enabled" => array_boolval($params, 'seed-queue-enabled'),
+            "seed-queue-size" => $params['seed-queue-size'],
         );
-        
+
         // Set configuration object
         $xpath = "//services/transmissionbt/modules/queuing";
         if ($xmlConfig->replace($xpath, $object) === false)
@@ -503,60 +504,60 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(OMV_NOTIFY_MODIFY, "org.openmediavault.services.transmissionbt", $object);
-        
+
         return $object;
     }
 
     /**
      * Get peer settings object
-     * 
+     *
      * @throws E_CONFIG_GET_OBJECT_FAILED
      */
     public function getPeer($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Get configuration object
         $xpath = "//services/transmissionbt/modules/peer";
         $object = $xmlConfig->get($xpath);
-        
+
         if (is_null($object))
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
-        
+
         // Modify result data
         // Limits
         $object['peer-limit-global'] = intval($object['peer-limit-global']);
         $object['peer-limit-per-torrent'] = intval($object['peer-limit-per-torrent']);
-        
+
         // Peer ports
         $object['peer-port'] = intval($object['peer-port']);
         $object['peer-port-random-high'] = intval($object['peer-port-random-high']);
         $object['peer-port-random-low'] = intval($object['peer-port-random-low']);
         $object['peer-port-random-on-start'] = boolval($object['peer-port-random-on-start']);
         $object['port-forwarding-enabled'] = boolval($object['port-forwarding-enabled']);
-        
+
         return $object;
     }
 
     /**
      * Set peer settings object
-     * 
+     *
      * @throws E_CONFIG_SET_OBJECT_FAILED
      */
     public function setPeer($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -573,26 +574,26 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "port-forwarding-enabled":{"type":"boolean"}
             }
         }');
-        
+
         // Prepare configuration data
         $object = array(
             // Bindings
-            "bind-address-ipv4" => $params['bind-address-ipv4'], 
+            "bind-address-ipv4" => $params['bind-address-ipv4'],
             "bind-address-ipv6" => $params['bind-address-ipv6'],
-            
+
             // Limits
-            "peer-limit-global" => $params['peer-limit-global'], 
-            "peer-limit-per-torrent" => $params['peer-limit-per-torrent'], 
+            "peer-limit-global" => $params['peer-limit-global'],
+            "peer-limit-per-torrent" => $params['peer-limit-per-torrent'],
             "peer-socket-tos" => $params['peer-socket-tos'],
-            
+
             // Peer ports
-            "peer-port" => $params['peer-port'], 
-            "peer-port-random-high" => $params['peer-port-random-high'], 
-            "peer-port-random-low" => $params['peer-port-random-low'], 
-            "peer-port-random-on-start" => array_boolval($params, 'peer-port-random-on-start'), 
-            "port-forwarding-enabled" => array_boolval($params, 'port-forwarding-enabled'), 
+            "peer-port" => $params['peer-port'],
+            "peer-port-random-high" => $params['peer-port-random-high'],
+            "peer-port-random-low" => $params['peer-port-random-low'],
+            "peer-port-random-on-start" => array_boolval($params, 'peer-port-random-on-start'),
+            "port-forwarding-enabled" => array_boolval($params, 'port-forwarding-enabled'),
         );
-        
+
         // Set configuration object
         $xpath = "//services/transmissionbt/modules/peer";
         if ($xmlConfig->replace($xpath, $object) === false)
@@ -601,28 +602,28 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(OMV_NOTIFY_MODIFY, "org.openmediavault.services.transmissionbt", $object);
-        
+
         return $object;
     }
 
     /**
      * Get scheduling settings object
-     * 
+     *
      * @throws E_CONFIG_GET_OBJECT_FAILED
      */
     public function getScheduling($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Get configuration object
         $xpath = "//services/transmissionbt/modules/scheduling";
         $object = $xmlConfig->get($xpath);
-        
+
         if (is_null($object))
             throw new OMVException(OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED, $xpath);
 
@@ -635,7 +636,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $object['alt-speed-time-end'] = intval($object['alt-speed-time-end']);
         $object['end-hour'] = intval($object['alt-speed-time-end'] / 60);
         $object['end-minute'] = ($object['alt-speed-time-end'] % 60);
-        
+
         // Days
         $object['days-sunday'] = false;
         if (($object['alt-speed-time-day'] & 1) === 1) {
@@ -669,28 +670,28 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         // Idle
         $object['idle-seeding-limit'] = intval($object['idle-seeding-limit']);
         $object['idle-seeding-limit-enabled'] = boolval($object['idle-seeding-limit-enabled']);
-        
+
         // Ratio
         $object['ratio-limit'] = floatval($object['ratio-limit']);
         $object['ratio-limit-enabled'] = boolval($object['ratio-limit-enabled']);
-        
+
         return $object;
     }
 
     /**
      * Set scheduling settings object
-     * 
+     *
      * @throws E_CONFIG_SET_OBJECT_FAILED
      */
     public function setScheduling($params, $context)
     {
         global $xmlConfig;
-        
+
         // Validate the RPC caller context.
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -713,7 +714,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "ratio-limit-enabled":{"type":"boolean"}
             }
         }');
-        
+
         $params['alt-speed-time-day'] = 0;
         if (array_boolval($params, 'days-sunday') === true) {
             $params['alt-speed-time-day'] += 1;
@@ -739,20 +740,20 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
 
         // Prepare configuration data
         $object = array(
-            'alt-speed-time-enabled' => array_boolval($params, 'alt-speed-time-enabled'), 
-            'alt-speed-time-begin' => intval(($params['begin-hour'] * 60) + $params['begin-minute']), 
-            'alt-speed-time-end' => intval(($params['end-hour'] * 60) + $params['end-minute']), 
+            'alt-speed-time-enabled' => array_boolval($params, 'alt-speed-time-enabled'),
+            'alt-speed-time-begin' => intval(($params['begin-hour'] * 60) + $params['begin-minute']),
+            'alt-speed-time-end' => intval(($params['end-hour'] * 60) + $params['end-minute']),
             'alt-speed-time-day' => $params['alt-speed-time-day'],
-            
+
             // Idle
-            'idle-seeding-limit' => $params['idle-seeding-limit'], 
+            'idle-seeding-limit' => $params['idle-seeding-limit'],
             'idle-seeding-limit-enabled' => array_boolval($params, 'idle-seeding-limit-enabled'),
-            
+
             // Ratio
-            'ratio-limit' => $params['ratio-limit'], 
-            'ratio-limit-enabled' => array_boolval($params, 'ratio-limit-enabled'), 
+            'ratio-limit' => $params['ratio-limit'],
+            'ratio-limit-enabled' => array_boolval($params, 'ratio-limit-enabled'),
         );
-        
+
         // Set configuration object
         $xpath = "//services/transmissionbt/modules/scheduling";
         if ($xmlConfig->replace($xpath, $object) === false)
@@ -761,7 +762,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         // Notify configuration changes
         $dispatcher = &OMVNotifyDispatcher::getInstance();
         $dispatcher->notify(OMV_NOTIFY_MODIFY, "org.openmediavault.services.transmissionbt", $object);
-        
+
         return $object;
     }
 
@@ -773,7 +774,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
     {
         $module = new OMVModuleTransmissionBT();
         return array($module->getStatus());
-        
+
         $this->getList();
     }
 
@@ -796,7 +797,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
         "type":"object",
@@ -810,34 +811,34 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
 
         $transmissionbt_rpc = $this->factoryTransmission();
         $torrents = $transmissionbt_rpc->get(
-            array(), 
+            array(),
             array(
-                'id', 
-                'name', 
-                'status', 
-                'totalSize', 
-                'haveValid', 
-                'percentDone', 
-                'eta', 
-                'peersConnected', 
-                'peersSendingToUs', 
-                'rateDownload', 
-                'rateUpload', 
-                'addedDate', 
-                'doneDate', 
-                'uploadRatio', 
+                'id',
+                'name',
+                'status',
+                'totalSize',
+                'haveValid',
+                'percentDone',
+                'eta',
+                'peersConnected',
+                'peersSendingToUs',
+                'rateDownload',
+                'rateUpload',
+                'addedDate',
+                'doneDate',
+                'uploadRatio',
                 'queuePosition'
             )
         );
-        
+
         $torrents = $torrents['arguments']['torrents'];
-        
+
         // Filter result
         return $this->applyFilter(
-            $torrents, 
-            $params['start'], 
-            $params['limit'], 
-            $params['sortfield'], 
+            $torrents,
+            $params['start'],
+            $params['limit'],
+            $params['sortfield'],
             $params['sortdir']
         );
     }
@@ -851,7 +852,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -859,7 +860,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
             "filename":{"type":"string"},
             "filepath":{"type":"string"}
             }
-        }'); 
+        }');
 
         $transmissionbt_rpc = $this->factoryTransmission();
         $torrent = $transmissionbt_rpc->add_file($params['filepath']);
@@ -876,7 +877,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -885,7 +886,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "start_download":{"type":"boolean"}
             }
         }');
-        
+
 
         $transmissionbt_rpc = $this->factoryTransmission();
 
@@ -901,7 +902,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 throw new Exception($result['result']);
             }
         }
-        
+
         throw new Exception('Something went really wrong');
     }
 
@@ -914,7 +915,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -923,12 +924,12 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "deleteLocalData":{"type":"boolean"}
             }
         }');
-        
+
 
         $transmissionbt_rpc = $this->factoryTransmission();
 
         $transmissionbt_rpc->remove(
-            $params['id'], 
+            $params['id'],
             array_boolval($params, 'deleteLocalData')
         );
 
@@ -944,7 +945,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -952,10 +953,10 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "id":{"type":"integer", "minimum":0}
             }
         }');
-        
+
         $transmissionbt_rpc = $this->factoryTransmission();
         $transmissionbt_rpc->start($params['id']);
-        
+
         return 'success';
     }
 
@@ -968,7 +969,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -976,10 +977,10 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
                 "id":{"type":"integer", "minimum":0}
             }
         }');
-        
+
         $transmissionbt_rpc = $this->factoryTransmission();
         $transmissionbt_rpc->stop($params['id']);
-        
+
         return 'success';
     }
 
@@ -992,7 +993,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
         $this->validateMethodContext($context, array(
             "role" => OMV_ROLE_ADMINISTRATOR
         ));
-        
+
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, '{
             "type":"object",
@@ -1027,7 +1028,7 @@ class OMVRpcServiceTransmissionBT extends OMVRpcServiceAbstract
 
     /**
      * Returns a new Transmission_RPC object
-     * 
+     *
      * @throws E_CONFIG_GET_OBJECT_FAILED
      * @return Transmission_RPC
      */

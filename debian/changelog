@@ -1,3 +1,9 @@
+openmediavault-transmissionbt (0.5.7) stable; urgency=low
+
+  * Added logs to webgui
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 02 Oct 2013 14:58:09 +0200
+
 openmediavault-transmissionbt (0.5.6) stable; urgency=low
 
   * A new beginning

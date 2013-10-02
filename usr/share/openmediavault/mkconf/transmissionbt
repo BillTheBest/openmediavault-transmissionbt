@@ -1,7 +1,8 @@
 #!/bin/sh
 #
-# Copyright (C) 2013 OpenMediaVault Plugin Developers
-# Copyright (c) 2012 Marcel Beck
+# Copyright (C) 2009-2012 Volker Theile <volker.theile@openmediavault.org>
+# Copyright (C) 2011-2012 Marcel Beck <marcel.beck@mbeck.org>
+# Copyright (C)      2013 OpenMediaVault Plugin Developers
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -225,9 +226,8 @@ if [ 1 = ${enable} -a 1 = ${blocklistsyncenabled} ]; then
 	cat <<EOF > ${cronfile}
 #!/bin/sh
 #
-# cron script to update TransmissionBT blocklists
-# by Volker Theile <volker.theile@openmediavault.org>
-# by Marcel Beck <marcel.beck@mbeck.org>
+# Cron script to update TransmissionBT blocklists
+# This file is created automatically by openmediavault-transmissionbt
 
 set -e
 
