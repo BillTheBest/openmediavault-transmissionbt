@@ -1,3 +1,10 @@
+openmediavault-transmissionbt (0.5.8) stable; urgency=low
+
+  * stop reloading the grid when changing tab
+  * disabling all buttons when the service is disabled.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 03 Oct 2013 13:58:09 +0200
+
 openmediavault-transmissionbt (0.5.7) stable; urgency=low
 
   * Added logs to webgui
