@@ -20,7 +20,7 @@
 OMV.WorkspaceManager.registerNode({
     id      : "transmissionbt",
     path    : "/service",
-	text    : _("BitTorrent"),
-	icon16  : "images/transmissionbt.png",
-	iconSvg : "images/transmissionbt.svg"
+    text    : _("BitTorrent"),
+    icon16  : "images/transmissionbt.png",
+    iconSvg : "images/transmissionbt.svg"
 });

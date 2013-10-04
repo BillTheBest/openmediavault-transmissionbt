@@ -19,18 +19,19 @@
 
 // require("js/omv/WorkspaceManager.js")
 // require("js/omv/workspace/form/Panel.js")
+// require("js/omv/form/plugin/LinkedFields.js")
 
 Ext.define("OMV.module.admin.service.transmissionbt.configure.Settings", {
     extend       : "OMV.workspace.form.Panel",
 
-    rpcService   :"TransmissionBT",
-    rpcGetMethod :"getSettings",
-    rpcSetMethod :"setSettings",
+    rpcService   : "TransmissionBT",
+    rpcGetMethod : "getSettings",
+    rpcSetMethod : "setSettings",
 
     plugins: [{
-        ptype          : "linkedfields",
-        correlations   : [{
-            name: [
+        ptype        : "linkedfields",
+        correlations : [{
+            name : [
                 "blocklistsyncfrequency",
                 "blocklisturl"
             ],
@@ -43,7 +44,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Settings", {
                 "!allowBlank"
             ]
         },{
-            name       : [
+            name : [
                 "rpcusername",
                 "rpcpassword"
             ],
@@ -65,7 +66,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Settings", {
             defaults : {
                 labelSeparator : ""
             },
-            items   : [{
+            items : [{
                 xtype      : "checkbox",
                 name       : "enable",
                 fieldLabel : _("Enable"),
@@ -190,7 +191,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Settings", {
             defaults : {
                 labelSeparator : ""
             },
-            items   : [{
+            items : [{
                 xtype         : "numberfield",
                 name          : "rpcport",
                 fieldLabel    : _("Port"),
@@ -248,7 +249,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Settings", {
             defaults : {
                 labelSeparator : ""
             },
-            items   : [{
+            items : [{
                 xtype      : "checkbox",
                 name       : "blocklistenabled",
                 fieldLabel : _("Enable"),
@@ -301,7 +302,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Settings", {
             defaults : {
                 labelSeparator : ""
             },
-            items   : [{
+            items : [{
                 xtype      : "checkbox",
                 name       : "script-torrent-done-enabled",
                 fieldLabel : _("Enable"),

@@ -30,24 +30,24 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.dialog.AddUrl", {
     okButtonText    : _("OK"),
     submitMsg       : _("Adding Torrent ..."),
 
-	getFormItems : function () {
-		return [{
-					xtype      : "textfield",
-					name       : "url",
-					id         : "url",
-					fieldLabel : _("URL"),
-					allowBlank : false
-				},
-				{
-					xtype      : "checkbox",
-					name       : "start_download",
-					id         : "start_download",
-					fieldLabel : _("Start download"),
-					checked    : true
-		}];
-	},
+    getFormItems : function () {
+        return [{
+                    xtype      : "textfield",
+                    name       : "url",
+                    id         : "url",
+                    fieldLabel : _("URL"),
+                    allowBlank : false
+                },
+                {
+                    xtype      : "checkbox",
+                    name       : "start_download",
+                    id         : "start_download",
+                    fieldLabel : _("Start download"),
+                    checked    : true
+        }];
+    },
 
-	onOkButton : function() {
+    onOkButton : function() {
         var me = this;
 
         if (!me.isValid()) {

@@ -22,18 +22,18 @@
 Ext.define("OMV.module.admin.service.transmissionbt.configure.Scheduling", {
     extend       : "OMV.workspace.form.Panel",
 
-	rpcService   : "TransmissionBT",
-	rpcGetMethod : "getScheduling",
-	rpcSetMethod : "setScheduling",
+    rpcService   : "TransmissionBT",
+    rpcGetMethod : "getScheduling",
+    rpcSetMethod : "setScheduling",
 
-	getFormItems : function() {
-		return [{
+    getFormItems : function() {
+        return [{
             xtype    : "fieldset",
             title    : _("General"),
             defaults : {
                 labelSeparator : ""
             },
-            items   : [{
+            items : [{
                 xtype      : "checkbox",
                 name       : "alt-speed-time-enabled",
                 fieldLabel : _("Scheduling"),
@@ -45,7 +45,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Scheduling", {
                 defaults : {
                     labelSeparator : ""
                 },
-                items   : [{
+                items : [{
                     xtype      : "compositefield",
                     name       : "begin-time",
                     fieldLabel : _("Begin"),
@@ -114,7 +114,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Scheduling", {
                 defaults : {
                     labelSeparator : ""
                 },
-                items   : [{
+                items : [{
                     xtype      : "checkbox",
                     name       : "days-sunday",
                     fieldLabel : _("Sunday"),
@@ -157,7 +157,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Scheduling", {
             defaults : {
                 labelSeparator : ""
             },
-            items   : [{
+            items : [{
                 xtype      : "checkbox",
                 name       : "idle-seeding-limit-enabled",
                 fieldLabel : _("Seeding Limit"),
@@ -178,7 +178,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.configure.Scheduling", {
             defaults : {
                 labelSeparator : ""
             },
-            items   : [{
+            items : [{
                 xtype      : "checkbox",
                 name       : "ratio-limit-enabled",
                 fieldLabel : _("Ratio"),

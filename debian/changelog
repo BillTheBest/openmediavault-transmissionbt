@@ -1,3 +1,9 @@
+openmediavault-transmissionbt (0.5.10) stable; urgency=low
+
+  * Add missing require dependency on Upload.js 
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 04 Oct 2013 21:44:33 +0200
+
 openmediavault-transmissionbt (0.5.9) stable; urgency=low
 
   * Fix require in Javascript files

@@ -21,6 +21,7 @@
 // require("js/omv/data/Store.js")
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
+// require("js/omv/window/Upload.js")
 // require("js/omv/module/admin/service/transmissionbt/util/Format.js")
 // require("js/omv/module/admin/service/transmissionbt/manage/dialog/AddUrl.js")
 // require("js/omv/module/admin/service/transmissionbt/manage/dialog/Delete.js")
