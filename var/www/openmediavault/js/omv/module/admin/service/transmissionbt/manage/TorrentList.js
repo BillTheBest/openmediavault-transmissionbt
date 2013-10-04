@@ -17,8 +17,9 @@
  */
 
 // require("js/omv/WorkspaceManager.js")
-// require("js/omv/workspace/form/Panel.js")
+// require("js/omv/workspace/grid/Panel.js")
 // require("js/omv/data/Store.js")
+// require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/module/admin/service/transmissionbt/util/Format.js")
 // require("js/omv/module/admin/service/transmissionbt/manage/dialog/AddUrl.js")

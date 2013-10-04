@@ -18,6 +18,7 @@
 
 // require("js/omv/WorkspaceManager.js")
 // require("js/omv/workspace/form/Panel.js")
+// require("js/omv/form/field/SharedFolderComboBox.js")
 
 Ext.define("OMV.module.admin.service.transmissionbt.configure.FilesAndLocations", {
     extend       : "OMV.workspace.form.Panel",
