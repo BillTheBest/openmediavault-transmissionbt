@@ -1,3 +1,9 @@
+openmediavault-transmissionbt (0.5.11) stable; urgency=low
+
+  * Change plugins to only i386 and amd64 architectures
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 08 Oct 2013 13:45:33 -0500
+
 openmediavault-transmissionbt (0.5.10) stable; urgency=low
 
   * Add missing require dependency on Upload.js 
