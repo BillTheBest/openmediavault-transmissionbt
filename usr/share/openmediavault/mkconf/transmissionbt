@@ -197,15 +197,15 @@ enable=$(omv_config_get "//services/transmissionbt/enable")
 
 watch_dir_enable=$(omv_config_get "//services/transmissionbt/modules/filesandlocations/paths/watch/enabled")
 if [ 1 = ${enable} -a  1 = ${watch_dir_enable} ]; then
-	watch_dir=$(omv_config_get "//services/transmissionbt/modules/filesandlocations/paths/watch/dir")
-	watch_dir_full=`xmlstarlet sel -t -m "//services/transmissionbt" ${BT_XMLSTARLET_GET_SHAREDFOLDER_PATH_WATCH} -o "/" -v "modules/filesandlocations/paths/watch/dir" ${OMV_CONFIG_FILE}`
-	mkdir -p ${watch_dir_full}
+    watch_dir=$(omv_config_get "//services/transmissionbt/modules/filesandlocations/paths/watch/dir")
+    watch_dir_full=`xmlstarlet sel -t -m "//services/transmissionbt" ${BT_XMLSTARLET_GET_SHAREDFOLDER_PATH_WATCH} -o "/" -v "modules/filesandlocations/paths/watch/dir" ${OMV_CONFIG_FILE}`
+    mkdir -p ${watch_dir_full}
 fi
 
 script_torrent_done_enabled=$(omv_config_get "//services/transmissionbt/script-torrent-done-enabled")
 if [ 1 = ${enable} -a  1 = ${script_torrent_done_enabled} ]; then
-	script_torrent_done_filename=$(omv_config_get "//services/transmissionbt/script-torrent-done-filename")
-	chmod +x ${script_torrent_done_filename}
+    script_torrent_done_filename=$(omv_config_get "//services/transmissionbt/script-torrent-done-filename")
+    chmod +x ${script_torrent_done_filename}
 fi
 
 # Create transmission cron file
@@ -217,13 +217,16 @@ cronfile="/etc/cron.${blocklistsyncfrequency}/transmissionbt"
 # have been modified we have to scan all /etc/cron.xxx directories.
 for crondir in $(ls -d /etc/cron.*ly)
 do
-	[ -e "${crondir}/transmissionbt" ] && rm "${crondir}/transmissionbt"
+    [ -e "${crondir}/transmissionbt" ] && rm "${crondir}/transmissionbt"
 done
 
 if [ 1 = ${enable} -a 1 = ${blocklistsyncenabled} ]; then
-	rpcusername=$(omv_config_get "//services/transmissionbt/rpcusername")
-	rpcpassword=$(omv_config_get "//services/transmissionbt/rpcpassword")
-	cat <<EOF > ${cronfile}
+    rpcport=$(omv_config_get "//services/transmissionbt/rpcport")
+    rpcurl=$(omv_config_get "//services/transmissionbt/rpcurl")
+    rpcurl=$(echo ${rpcurl} | sed 's/\/$//g')
+    rpcusername=$(omv_config_get "//services/transmissionbt/rpcusername")
+    rpcpassword=$(omv_config_get "//services/transmissionbt/rpcpassword")
+    cat <<EOF > ${cronfile}
 #!/bin/sh
 #
 # Cron script to update TransmissionBT blocklists
@@ -231,8 +234,8 @@ if [ 1 = ${enable} -a 1 = ${blocklistsyncenabled} ]; then
 
 set -e
 
-transmission-remote -n ${rpcusername}:${rpcpassword} --blocklist-update
+transmission-remote http://localhost:${rpcport}${rpcurl} -n ${rpcusername}:${rpcpassword} --blocklist-update
 
 EOF
-	chmod 755 ${cronfile}
+    chmod 755 ${cronfile}
 fi

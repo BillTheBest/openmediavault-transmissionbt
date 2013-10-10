@@ -1,3 +1,9 @@
+openmediavault-transmissionbt (0.5.12) stable; urgency=low
+
+  * Fix 301: Moved Permanently under cronjob when changing rpc-url to non default value
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 10 Oct 2013 13:33:16 +0200
+
 openmediavault-transmissionbt (0.5.11) stable; urgency=low
 
   * Change plugins to only i386 and amd64 architectures
