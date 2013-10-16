@@ -34,14 +34,12 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.dialog.AddUrl", {
         return [{
                     xtype      : "textfield",
                     name       : "url",
-                    id         : "url",
                     fieldLabel : _("URL"),
                     allowBlank : false
                 },
                 {
                     xtype      : "checkbox",
                     name       : "start_download",
-                    id         : "start_download",
                     fieldLabel : _("Start download"),
                     checked    : true
         }];

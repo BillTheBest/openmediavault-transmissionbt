@@ -38,8 +38,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         "OMV.module.admin.service.transmissionbt.manage.dialog.Delete"
     ],
 
-    autoReload              : false,
-    reloadInterval          : 10000,
+    autoReload              : true,
     rememberSelected        : true,
     hidePagingToolbar       : true,
     hideAddButton           : true,
@@ -52,112 +51,72 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
     stateful                : true,
     stateId                 : "cb44cbf3-b1cb-b6ba-13548ab0dc7c246c",
 
-    constructor : function(config) {
-        var me = this;
-
-        config = Ext.apply({
-            columns: [{
-                header    : _("ID"),
-                sortable  : true,
-                dataIndex : "id",
-                id        : "id"
-            },
-            {
-                header    : _("Name"),
-                sortable  : true,
-                dataIndex : "name",
-                id        : "name"
-            },
-            {
-                header    : _("Status"),
-                sortable  : true,
-                dataIndex : "status",
-                id        : "status",
-                renderer  : me.statusRenderer,
-                scope     : me
-            },
-            {
-                header    : _("Done"),
-                sortable  : true,
-                dataIndex : "percentDone",
-                id        : "percentDone",
-                renderer  : me.doneRenderer,
-                scope     : me
-            },
-            {
-                header    : _("ETA"),
-                sortable  : true,
-                dataIndex : "eta",
-                id        : "eta",
-                renderer  : me.etaRenderer,
-                scope     : me
-            },
-            {
-                header   : _("Peers"),
-                sortable : true,
-                id       : "peers",
-                renderer : me.peersRenderer,
-                scope    : me
-            },
-            {
-                header    : _("DL-Rate"),
-                sortable  : true,
-                dataIndex : "rateDownload",
-                id        : "rateDownload",
-                renderer  : me.rateRenderer,
-                scope     : me
-            },
-            {
-                header    : _("UL-Rate"),
-                sortable  : true,
-                dataIndex : "rateUpload",
-                id        : "rateUpload",
-                renderer  : me.rateRenderer,
-                scope     : me
-            },
-            {
-                header    : _("Date Added"),
-                sortable  : true,
-                dataIndex : "addedDate",
-                id        : "addedDate",
-                renderer  : me.timestampRenderer,
-                scope     : me
-            },
-            {
-                header    : _("Date Done"),
-                sortable  : true,
-                dataIndex : "doneDate",
-                id        : "doneDate",
-                renderer  : me.timestampRenderer,
-                scope     : me
-            },
-            {
-                header    : _("Ratio"),
-                sortable  : true,
-                dataIndex : "uploadRatio",
-                id        : "uploadRatio",
-                renderer  : me.ratioRenderer,
-                scope     : me
-            },
-            {
-                header    : _("Queue"),
-                sortable  : true,
-                dataIndex : "queuePosition",
-                id        : "queuePosition"
-            }]
-        }, config || {});
-
-        me.callParent([config]);
-    },
+    columns: [{
+        header    : _("ID"),
+        sortable  : true,
+        dataIndex : "id"
+    },{
+        header    : _("Name"),
+        sortable  : true,
+        dataIndex : "name"
+    },{
+        header    : _("Status"),
+        sortable  : true,
+        dataIndex : "status",
+        renderer  : OMV.module.services.transmissionbt.util.Format.statusRenderer
+    },{
+        header    : _("Done"),
+        sortable  : true,
+        dataIndex : "percentDone",
+        renderer  : OMV.module.services.transmissionbt.util.Format.doneRenderer
+    },{
+        header    : _("ETA"),
+        sortable  : true,
+        dataIndex : "eta",
+        renderer  : OMV.module.services.transmissionbt.util.Format.etaRenderer
+    },{
+        header    : _("Peers"),
+        sortable  : true,
+        dataIndex : "peers",
+        renderer  : OMV.module.services.transmissionbt.util.Format.peersRenderer
+    },{
+        header    : _("DL-rate"),
+        sortable  : true,
+        dataIndex : "rateDownload",
+        renderer  : OMV.module.services.transmissionbt.util.Format.rateRenderer
+    },{
+        header    : _("UL-rate"),
+        sortable  : true,
+        dataIndex : "rateUpload",
+        renderer  : OMV.module.services.transmissionbt.util.Format.rateRenderer
+    },{
+        header    : _("Date added"),
+        sortable  : true,
+        dataIndex : "addedDate",
+        renderer  : OMV.module.services.transmissionbt.util.Format.timestampRenderer
+    },{
+        header    : _("Date done"),
+        sortable  : true,
+        dataIndex : "doneDate",
+        renderer  : OMV.module.services.transmissionbt.util.Format.timestampRenderer
+    },{
+        header    : _("Ratio"),
+        sortable  : true,
+        dataIndex : "uploadRatio",
+        renderer  : OMV.module.services.transmissionbt.util.Format.ratioRenderer
+    },{
+        header    : _("Queue"),
+        sortable  : true,
+        dataIndex : "queuePosition",
+    }],
 
     initComponent : function() {
         var me = this;
 
-        // Set up the store
         Ext.apply(me, {
             store: Ext.create("OMV.data.Store", {
-                autoload  :false,
-                model: OMV.data.Model.createImplicit({
+                autoload : false,
+                model    : OMV.data.Model.createImplicit({
                     idProperty    : "id",
                     totalProperty : "total",
                     fields        : [
@@ -178,56 +137,31 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
                         { name : "queuePosition" }
                     ]
                 }),
-                proxy       : {
+                proxy : {
                     type    : "rpc",
                     rpcData : {
                         "service" : "TransmissionBT",
                         "method"  : "getList"
                     }
                 }
-            }),
-
-            listeners : {
-                scope: me,
-                itemcontextmenu : function (record, item, index, e, eOpts) {
-                    me.showContextMenu(record, item, index, e, eOpts);
-                }
-            }
+            })
         });
 
-        me.on('activate', function() {
-                me.doReload();
-        });
-
+        me.menu = me.getMenu();
         me.callParent(arguments);
+
+        me.on({
+            itemcontextmenu : me.onItemContextMenu,
+        });
     },
 
-    enableReload : function(id, success, response) {
+    onReload : function(id, success, response) {
         var me = this;
 
         if (success) {
             if (!response[0].running)  {
-                me.autoReload = false;
                 me.disableReloadAndButtons();
             } else {
-                me.autoReload = true;
-
-                if (Ext.isEmpty((me.reloadTask))) {
-                    me.reloadTask = Ext.TaskManager.start({
-                        run      : me.doReload,
-                        scope    : me,
-                        interval : me.reloadInterval
-                    });
-                }
-
-                me.on("beforedestroy", function() {
-                    me.disableReloadAndButtons();
-                }, me);
-
-                me.on("deactivate", function() {
-                    me.disableReloadAndButtons();
-                }, me);
-
                 if (me.store !== null)
                     me.store.reload();
 
@@ -244,11 +178,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
     disableReloadAndButtons : function() {
         var me = this;
 
-        if (!Ext.isEmpty(me.reloadTask)) {
-            Ext.TaskManager.stop(me.reloadTask);
-            delete me.reloadTask;
-        }
-
+        me.fnDeactivateTask();
         me.toggleAddTorrentButtons(false);
         me.store.removeAll();
     },
@@ -260,7 +190,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         // should enable automatic reload
         OMV.Rpc.request({
             scope    : me,
-            callback : me.enableReload,
+            callback : me.onReload,
             rpcData  : {
                 service : "TransmissionBT",
                 method  : "getStatus"
@@ -319,72 +249,79 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         return items;
     },
 
-    getContextMenu : function() {
+    getMenu : function() {
         var me = this;
 
-        if (Ext.isEmpty(me.contextMenu)) {
-                // Set up the context menu
-            Ext.apply(me, {
-                contextMenu : Ext.create("Ext.menu.Menu", {
-                    items:[{
-                        id      : me.getId() + "-menu-resume",
-                        text    : _("Resume"),
-                        icon    : "images/transmissionbt-resume.png",
-                        iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
-                        handler : me.onResumeButton,
-                        scope   : me
-                    },{
-                        id      : me.getId() + "-menu-pause",
-                        text    : _("Pause"),
-                        icon    : "images/transmissionbt-pause.png",
-                        iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
-                        handler : me.onPauseButton,
-                        scope   : me
-                    },{
-                        id      : me.getId() + "-menu-delete",
-                        text    : _("Delete"),
-                        icon    : "images/delete.png",
-                        iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
-                        handler : me.onDeleteButton,
-                        scope   : me
-                    },{
-                        id      : me.getId() + "-menu-queue-top",
-                        text    : _("Queue Move Top"),
-                        icon    : "images/arrow-up.png",
-                        iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
-                        handler : me.onQueueMoveMenu,
-                        scope   : me,
-                        action  : 'top'
-                    },{
-                        id      : me.getId() + "-menu-queue-up",
-                        text    : _("Queue Move Up"),
-                        icon    : "images/arrow-up.png",
-                        iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
-                        handler : me.onQueueMoveMenu,
-                        scope   : me,
-                        action  : 'up'
-                    },{
-                        id      : me.getId() + "-menu-queue-down",
-                        text    : _("Queue Move Down"),
-                        icon    : "images/arrow-down.png",
-                        iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
-                        handler : me.onQueueMoveMenu,
-                        scope   : me,
-                        action  : 'down'
-                    },{
-                        id      : me.getId() + "-menu-queue-bottom",
-                        text    : _("Queue Move Bottom"),
-                        icon    : "images/arrow-down.png",
-                        iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
-                        handler : me.onQueueMoveMenu,
-                        scope   : me,
-                        action  : 'bottom'
-                    }]
-                })
-            });
-        }
+        return Ext.create("Ext.menu.Menu", {
+            items: [{
+                id      : me.getId() + "-menu-resume",
+                text    : _("Resume"),
+                icon    : "images/transmissionbt-resume.png",
+                iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
+                handler : me.onResumeButton,
+                scope   : me
+            },{
+                id      : me.getId() + "-menu-pause",
+                text    : _("Pause"),
+                icon    : "images/transmissionbt-pause.png",
+                iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
+                handler : me.onPauseButton,
+                scope   : me
+            },{
+                id      : me.getId() + "-menu-delete",
+                text    : _("Delete"),
+                icon    : "images/delete.png",
+                iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
+                handler : me.onDeleteButton,
+                scope   : me
+            },{
+                id      : me.getId() + "-menu-queue-top",
+                text    : _("Queue Move Top"),
+                icon    : "images/arrow-up.png",
+                iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
+                handler : me.onQueueMoveMenu,
+                scope   : me,
+                action  : 'top'
+            },{
+                id      : me.getId() + "-menu-queue-up",
+                text    : _("Queue Move Up"),
+                icon    : "images/arrow-up.png",
+                iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
+                handler : me.onQueueMoveMenu,
+                scope   : me,
+                action  : 'up'
+            },{
+                id      : me.getId() + "-menu-queue-down",
+                text    : _("Queue Move Down"),
+                icon    : "images/arrow-down.png",
+                iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
+                handler : me.onQueueMoveMenu,
+                scope   : me,
+                action  : 'down'
+            },{
+                id      : me.getId() + "-menu-queue-bottom",
+                text    : _("Queue Move Bottom"),
+                icon    : "images/arrow-down.png",
+                iconCls : Ext.baseCSSPrefix + "btn-icon-16x16",
+                handler : me.onQueueMoveMenu,
+                scope   : me,
+                action  : 'bottom'
+            }]
+        });
+    },
 
-        return me.contextMenu;
+    onDestroy : function() {
+        var me = this;
+
+        me.menu.destroy();
+        me.callParent(arguments);
+    },
+
+    onItemContextMenu : function (view, record, item, index, e) {
+        var me = this;
+
+        e.stopEvent();
+        me.menu.showAt(e.getXY);
     },
 
     onSelectionChange : function(model, records) {
@@ -393,8 +330,8 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         // Don't pass records since we use pop
         // in these methods and arrays are
         // passed by reference
-        me.toggleButtons();
-        me.toggleContextMenu();
+        me.toggleTopToolbarButtons();
+        me.toggleMenuButtons();
     },
 
     toggleAddTorrentButtons : function(enable) {
@@ -411,7 +348,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         }
     },
 
-    toggleButtons : function(records) {
+    toggleTopToolbarButtons : function(records) {
         var me = this;
 
         if (!records)
@@ -480,7 +417,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         }
     },
 
-    toggleContextMenu : function(records) {
+    toggleMenuButtons : function(records) {
         var me = this;
 
         if (!records)
@@ -558,7 +495,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         }
 
         for (var i = 0, j = menuBtnName.length; i < j; i++) {
-            var menuBtnCtrl = me.getContextMenu().queryById(me.getId() + "-" +
+            var menuBtnCtrl = me.menu.queryById(me.getId() + "-" +
                 menuBtnName[i]);
 
             if (!Ext.isEmpty(menuBtnCtrl)) {
@@ -570,118 +507,6 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
             }
         }
     },
-
-    showContextMenu:function (record, item, index, e, eOpts) {
-        var me = this;
-
-        // Stop right click menu from appearing
-        eOpts.stopEvent();
-
-        // .. and let our context menu show
-        me.getContextMenu().showAt(eOpts.xy);
-    },
-
-    /** Renderers **/
-
-    doneRenderer : function(val, cell, record, row, col, store) {
-        var percentage = parseFloat(record.get("percentDone"));
-        var totalSize = parseInt(record.get("totalSize"), 10);
-        var haveValid = parseInt(record.get("haveValid"), 10);
-
-        if (-1 == percentage) {
-            return val;
-        }
-
-        var text = OMV.module.services.transmissionbt.util.Format.bytesToSize(haveValid) + '/' + OMV.module.services.transmissionbt.util.Format.bytesToSize(totalSize) + ' (' + parseInt(percentage * 100, 10) + '%)';
-        var renderer = OMV.util.Format.progressBarRenderer(
-            percentage, text);
-
-        return renderer.apply(this, arguments);
-    },
-
-    statusRenderer : function(val, cell, record, row, col, store) {
-        switch (val) {
-            case 0:
-                val = _("Torrent is stopped");
-                break;
-            case 1:
-                val = _("Queued to check files");
-                break;
-            case 2:
-                val = _("Checking files");
-                break;
-            case 3:
-                val = _("Queued to download");
-                break;
-            case 4:
-                val = _("Downloading");
-                break;
-            case 5:
-                val = _("Queued to seed");
-                break;
-            case 6:
-                val = _("Seeding");
-                break;
-            default:
-                val = _("Missing Status: ") + val;
-                break;
-        }
-        return val;
-    },
-
-    etaRenderer : function(val, cell, record, row, col, store) {
-        switch (val) {
-            case -1:
-                val = _("Not available");
-                break;
-            case -2:
-                val = _("Unknown");
-                break;
-            default:
-                val = OMV.module.services.transmissionbt.util.Format.timeInterval(val);
-                break;
-        }
-        return val;
-    },
-
-    peersRenderer : function(val, cell, record, row, col, store) {
-        var peersConnected = parseInt(record.get("peersConnected"), 10);
-        var peersSendingToUs = parseInt(record.get("peersSendingToUs"), 10);
-
-        val = peersSendingToUs + ' / ' + peersConnected;
-
-        return val;
-    },
-
-    rateRenderer : function(val, cell, record, row, col, store) {
-        val = OMV.module.services.transmissionbt.util.Format.rate(val);
-
-        return val;
-    },
-
-    timestampRenderer : function(val, cell, record, row, col, store) {
-        if (val <= 0)
-            return;
-
-        var dt = Ext.Date.parse(val, "U");
-
-        return Ext.util.Format.date(dt, 'Y-m-d H:i:s');
-    },
-
-    ratioRenderer : function(val, cell, record, row, col, store) {
-        switch (val) {
-            case -1:
-                val = _("Not available");
-                break;
-            case -2:
-                val = _("Infinite");
-                break;
-        }
-
-        return val;
-    },
-
-    /** TopToolbarButtons **/
 
     /* Upload handlers */
     onUploadButton : function() {

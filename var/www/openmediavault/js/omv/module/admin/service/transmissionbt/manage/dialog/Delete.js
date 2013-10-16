@@ -34,7 +34,6 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.dialog.Delete", {
         return [{
             xtype      : "checkbox",
             name       : "delete_local_data",
-            id         : "delete_local_data",
             fieldLabel : _("Delete Local Data"),
             checked    : false
         }];

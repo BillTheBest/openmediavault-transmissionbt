@@ -1,3 +1,10 @@
+openmediavault-transmissionbt (0.5.13) stable; urgency=low
+
+  * Code cleanup to take use of latest OMV.grid.Panel improvements
+  * Move renderers to Format.js
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 13 Oct 2013 13:30:44 +0200
+
 openmediavault-transmissionbt (0.5.12) stable; urgency=low
 
   * Fix 301: Moved Permanently under cronjob when changing rpc-url to non default value
@@ -12,7 +19,7 @@ openmediavault-transmissionbt (0.5.11) stable; urgency=low
 
 openmediavault-transmissionbt (0.5.10) stable; urgency=low
 
-  * Add missing require dependency on Upload.js 
+  * Add missing require dependency on Upload.js
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 04 Oct 2013 21:44:33 +0200
 

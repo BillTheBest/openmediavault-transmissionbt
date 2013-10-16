@@ -22,34 +22,34 @@ Ext.ns("OMV.module.services.transmissionbt.util");
 
 OMV.module.services.transmissionbt.util.Format = function() {
     var f = function() {};
-    f.prototype = OMV.util.Format;
     var o = function() {};
+    f.prototype = OMV.util.Format;
 
     Ext.extend(o, f, function() {
         return {
             bytesToSize : function(bytes) {
                 var sizes = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+
                 if (bytes === 0)
                     return 'n/a';
+
                 var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+
                 return ((i === 0) ? (bytes / Math.pow(1024, i)) : (bytes / Math.pow(1024, i)).toFixed(1)) + ' ' + sizes[i];
             },
 
             timeInterval : function(seconds) {
                 var weeks = Math.floor(seconds / 604800), days = Math.floor((seconds % 604800) / 86400), hours = Math.floor((seconds % 86400) / 3600), minutes = Math.floor((seconds % 3600) / 60), secondsLeft = Math.floor(seconds % 60), w = weeks + 'w', d = days + 'd', h = hours + 'h', m = minutes + 'm', s = secondsLeft + 's';
 
-                if (weeks) {
+                if (weeks)
                     return w + ' ' + d;
-                }
-                if (days) {
+                if (days)
                     return d + ' ' + h;
-                }
-                if (hours) {
+                if (hours)
                     return h + ' ' + m;
-                }
-                if (minutes) {
+                if (minutes)
                     return m + ' ' + s;
-                }
+
                 return s;
             },
 
@@ -69,9 +69,109 @@ OMV.module.services.transmissionbt.util.Format = function() {
                 // Insane speeds
                 speed /= 1000;
                 return [speed.toTruncFixed(2), 'GB/s'].join(' ');
+            },
+
+            /** Renderers **/
+            doneRenderer : function(value, metaData, record) {
+                var percentage = parseFloat(record.get("percentDone"));
+                var totalSize = parseInt(record.get("totalSize"), 10);
+                var haveValid = parseInt(record.get("haveValid"), 10);
+
+                if (-1 == percentage) {
+                    return value;
+                }
+
+                var text = OMV.module.services.transmissionbt.util.Format.bytesToSize(haveValid) + '/' + OMV.module.services.transmissionbt.util.Format.bytesToSize(totalSize) + ' (' + parseInt(percentage * 100, 10) + '%)';
+                var renderer = OMV.util.Format.progressBarRenderer(
+                    percentage, text);
+
+                return renderer.apply(this, arguments);
+            },
+
+            statusRenderer : function(value) {
+                switch (value) {
+                    case 0:
+                        value = _("Torrent is stopped");
+                        break;
+                    case 1:
+                        value = _("Queued to check files");
+                        break;
+                    case 2:
+                        value = _("Checking files");
+                        break;
+                    case 3:
+                        value = _("Queued to download");
+                        break;
+                    case 4:
+                        value = _("Downloading");
+                        break;
+                    case 5:
+                        value = _("Queued to seed");
+                        break;
+                    case 6:
+                        value = _("Seeding");
+                        break;
+                    default:
+                        value = _("Missing Status: ") + value;
+                        break;
+                }
+
+                return value;
+            },
+
+            etaRenderer : function(value) {
+                switch (value) {
+                    case -1:
+                        value = _("Not available");
+                        break;
+                    case -2:
+                        value = _("Unknown");
+                        break;
+                    default:
+                        value = OMV.module.services.transmissionbt.util.Format.timeInterval(value);
+                        break;
+                }
+
+                return value;
+            },
+
+            peersRenderer : function(value, metaData, record) {
+                var peersConnected = parseInt(record.get("peersConnected"), 10);
+                var peersSendingToUs = parseInt(record.get("peersSendingToUs"), 10);
+
+                value = peersSendingToUs + ' / ' + peersConnected;
+
+                return value;
+            },
+
+            rateRenderer : function(value) {
+                return OMV.module.services.transmissionbt.util.Format.rate(value);
+            },
+
+            timestampRenderer : function(value) {
+                if (value <= 0)
+                    return;
+
+                var dt = Ext.Date.parse(value, "U");
+
+                return Ext.util.Format.date(dt, 'Y-m-d H:i:s');
+            },
+
+            ratioRenderer : function(value) {
+                switch (value) {
+                    case -1:
+                        value = _("Not available");
+                        break;
+                    case -2:
+                        value = _("Infinite");
+                        break;
+                }
+
+                return value;
             }
         };
     }());
+
     return new o();
 }();
 
