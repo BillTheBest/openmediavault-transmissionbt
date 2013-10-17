@@ -178,7 +178,6 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
     disableReloadAndButtons : function() {
         var me = this;
 
-        me.fnDeactivateTask();
         me.toggleAddTorrentButtons(false);
         me.store.removeAll();
     },
