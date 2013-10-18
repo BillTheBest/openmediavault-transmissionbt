@@ -1,3 +1,9 @@
+openmediavault-transmissionbt (0.5.14) stable; urgency=low
+
+  * Bugfix release
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 18 Oct 2013 12:17:07 +0200
+
 openmediavault-transmissionbt (0.5.13) stable; urgency=low
 
   * Code cleanup to take use of latest OMV.grid.Panel improvements
