@@ -320,7 +320,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         var me = this;
 
         e.stopEvent();
-        me.menu.showAt(e.getXY);
+        me.menu.showAt(e.getXY());
     },
 
     onSelectionChange : function(model, records) {
