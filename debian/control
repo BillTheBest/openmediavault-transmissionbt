@@ -7,7 +7,7 @@ Standards-Version: 3.9.3
 Homepage: http://omv-extras.org
 
 Package: openmediavault-transmissionbt
-Architecture: i386 amd64
+Architecture: all
 Depends: ${misc:Depends}, openmediavault (>= 0.5.14), transmission-daemon (>= 2.42), transmission-cli (>= 2.42)
 Priority: optional
 Description: OpenMediaVault Transmission (BitTorrent client) plugin
