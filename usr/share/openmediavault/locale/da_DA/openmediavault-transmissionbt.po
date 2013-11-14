@@ -1,5 +1,5 @@
-# openmediavault-transmissionbt
-# Copyright (C) 2013
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-transmissionbt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-28 09:21-0500\n"
-"PO-Revision-Date: 2013-11-04 14:36+0000\n"
-"Last-Translator: Stefan Thrane Overby <stoverby@gmail.com>\n"
+"POT-Creation-Date: 2013-11-14 11:49-0600\n"
+"PO-Revision-Date: 2013-11-14 17:50+0000\n"
+"Last-Translator: ryecoaaron <aaron27@ryecoinc.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/openmediavault-transmissionbt/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Adding Torrent ..."
-msgstr "Tilføjer Torrent ..."
-
 msgid "Add Torrent by URL"
 msgstr "Tilføj Torrent med URL"
 
 msgid "Add URL"
 msgstr "Tilføj URL"
+
+msgid "Adding Torrent ..."
+msgstr "Tilføjer Torrent ..."
 
 msgid "Authentication"
 msgstr "Godkendelse"
@@ -57,8 +57,14 @@ msgstr "Cachestørrelse (i Mb) for at reducere læse og skrive antallet på disk
 msgid "Checking files"
 msgstr "Kontroller filer"
 
+msgid "DL-rate"
+msgstr "DL-rate"
+
 msgid "Daily"
 msgstr "Daglig"
+
+msgid "Date & Time"
+msgstr "Dato & Tid"
 
 msgid "Date added"
 msgstr "Dato Tilføjet"
@@ -66,17 +72,11 @@ msgstr "Dato Tilføjet"
 msgid "Date done"
 msgstr "Dato Færdig"
 
-msgid "Date & Time"
-msgstr "Dato & Tid"
-
 msgid "Days"
 msgstr "Dage"
 
 msgid "Debug"
 msgstr "Debug"
-
-msgid "default"
-msgstr "standard"
 
 msgid "Delete"
 msgstr "Slet"
@@ -110,26 +110,41 @@ msgstr "Mappe til at gemme filer, indtil torrent er færdig."
 msgid "Distributed hash table (DHT)."
 msgstr "Distribueret hashtabel (DHT)."
 
-msgid "DL-rate"
-msgstr "DL-rate"
-
 msgid "Done"
 msgstr "Færdig"
 
 msgid "Download"
 msgstr "Download"
 
+msgid "Download Queue"
+msgstr "Download Kø"
+
 msgid "Downloading"
 msgstr "Downloader"
 
-msgid "Download Queue"
-msgstr "Download Kø"
+msgid "ETA"
+msgstr "ETA"
 
 msgid "Enable"
 msgstr "Aktiver"
 
+msgid "Enable &micro;TP."
+msgstr "Aktiver &micro;TP."
+
 msgid "Enable DHT."
 msgstr "Aktiver DHT."
+
+msgid "Enable LPD."
+msgstr "Aktiver LPD."
+
+msgid "Enable PEX."
+msgstr "Aktiver PEX."
+
+msgid "Enable Turtle Mode."
+msgstr "Aktiver Turtle Modus."
+
+msgid "Enable Watch directory."
+msgstr "Aktiver Overvågnings mappe."
 
 msgid "Enable download limit."
 msgstr "Aktiver download grænse."
@@ -137,29 +152,14 @@ msgstr "Aktiver download grænse."
 msgid "Enable incomplete directory."
 msgstr "Aktiver ufærdig mappe."
 
-msgid "Enable LPD."
-msgstr "Aktiver LPD."
-
-msgid "Enable &micro;TP."
-msgstr "Aktiver &micro;TP."
-
 msgid "Enable paused torrent scraping."
 msgstr "Aktiver pauset torrent høstning."
-
-msgid "Enable PEX."
-msgstr "Aktiver PEX."
 
 msgid "Enable port forwarding via NAT-PMP or UPnP."
 msgstr "Aktiver port forwarding via NAT-PMP eller UPnP."
 
-msgid "Enable Turtle Mode."
-msgstr "Aktiver Turtle Modus."
-
 msgid "Enable upload limit."
 msgstr "Aktiver upload grænse."
-
-msgid "Enable Watch directory."
-msgstr "Aktiver Overvågnings mappe."
 
 msgid "Encryption"
 msgstr "Kryptering"
@@ -172,9 +172,6 @@ msgstr "Indtast sti til script."
 
 msgid "Error"
 msgstr "Fejl"
-
-msgid "ETA"
-msgstr "ETA"
 
 msgid "Event"
 msgstr "Begivenhed"
@@ -212,6 +209,18 @@ msgstr "Timebasis"
 msgid "ID"
 msgstr "ID"
 
+msgid "IPv4"
+msgstr "IPv4"
+
+msgid "IPv4 address to listen on. Use 0.0.0.0 for all host IPs."
+msgstr "IPv4 adresse, der skal lyttes på. Brug 0.0.0.0 til alle værts IPer."
+
+msgid "IPv6"
+msgstr "IPv6"
+
+msgid "IPv6 address to listen on. Use :: for all host IPs."
+msgstr "IPv6 adresse, der skal lyttes på. Brug :: til alle værts IPer."
+
 msgid "Idle"
 msgstr "Ledig"
 
@@ -230,18 +239,6 @@ msgstr "Oplysning"
 msgid "Invalid Uri."
 msgstr "Ugyldig Uri."
 
-msgid "IPv4"
-msgstr "IPv4"
-
-msgid "IPv4 address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr "IPv4 adresse, der skal lyttes på. Brug 0.0.0.0 til alle værts IPer."
-
-msgid "IPv6"
-msgstr "IPv6"
-
-msgid "IPv6 address to listen on. Use :: for all host IPs."
-msgstr "IPv6 adresse, der skal lyttes på. Brug :: til alle værts IPer."
-
 msgid "Jobs"
 msgstr "Opgaver"
 
@@ -251,29 +248,23 @@ msgstr "Doven Bitfelt"
 msgid "Limit Download"
 msgstr "Begræns Download"
 
-msgid "Limit download speed. Value is kb/s."
-msgstr "Begræns download hastighed. Værdi er i kb/s."
-
-msgid "Limits"
-msgstr "Begrænsninger"
-
 msgid "Limit Upload"
 msgstr "Begræns Upload"
 
+msgid "Limit download speed. Value is kb/s."
+msgstr "Begræns download hastighed. Værdi er i kb/s."
+
 msgid "Limit upload speed. Value is kb/s."
 msgstr "Begræns upload hastighed. Værdi er i kb/s."
+
+msgid "Limits"
+msgstr "Begrænsninger"
 
 msgid "Local Peer Discovery (LPD)."
 msgstr "Lokal Peer Opdagelse (LPD)"
 
 msgid "Locations"
 msgstr "Placeringer"
-
-msgid "lowcost"
-msgstr "lav omkostninger"
-
-msgid "lowdelay"
-msgstr "lav forsinkelse"
 
 msgid ""
 "Make sure the group 'debian-transmission' has read/write access to the "
@@ -289,8 +280,8 @@ msgstr "Besked Niveau"
 msgid "Micro Transport Protocol (&micro;TP)."
 msgstr "Micro Transport Protokol (&micro;TP)."
 
-msgid "Missing Status:"
-msgstr "Manglende Status:"
+msgid "Missing Status: "
+msgstr ""
 
 msgid "Mode for preallocating files."
 msgstr "Modus til efterallokering filer"
@@ -310,11 +301,11 @@ msgstr "Ingen"
 msgid "Not available"
 msgstr "Ikke tilgængelig"
 
-msgid "Off"
-msgstr "Fra"
-
 msgid "OK"
 msgstr "OK"
+
+msgid "Off"
+msgstr "Fra"
 
 msgid "Password"
 msgstr "Adgangskode"
@@ -328,14 +319,14 @@ msgstr "Pauser valgte emne(r)"
 msgid "Peer"
 msgstr "Peer"
 
+msgid "Peer Ports"
+msgstr "Peer Porte"
+
 msgid "Peer exchange (PEX)"
 msgstr "Peer udveksling (PEX)"
 
 msgid "Peer port"
 msgstr "Peer port"
-
-msgid "Peer Ports"
-msgstr "Peer Porte"
 
 msgid "Peers"
 msgstr "Peers"
@@ -370,15 +361,6 @@ msgstr "Foretrukken"
 msgid "Queue"
 msgstr "Kø"
 
-msgid "Queued to check files"
-msgstr "I kø for at kontroller filer"
-
-msgid "Queued to download"
-msgstr "I kø til download"
-
-msgid "Queued to seed"
-msgstr "I kø til seed"
-
 msgid "Queue Move Bottom"
 msgstr "Kø Flyt Bund"
 
@@ -391,20 +373,26 @@ msgstr "Kø Flyt Top"
 msgid "Queue Move Up"
 msgstr "Kø Flyt Op"
 
+msgid "Queue Stalled"
+msgstr "Kø Stoppet"
+
 msgid "Queue moving selcted item(s)"
 msgstr "Kø flytter valgte emne(r)"
 
-msgid "Queue Stalled"
-msgstr "Kø Stoppet"
+msgid "Queued to check files"
+msgstr "I kø for at kontroller filer"
+
+msgid "Queued to download"
+msgstr "I kø til download"
+
+msgid "Queued to seed"
+msgstr "I kø til seed"
 
 msgid "Queuing"
 msgstr "Sætter i kø"
 
-msgid "Random high"
-msgstr "Vilkårlig høj"
-
-msgid "Random low"
-msgstr "Vilkårlig lav"
+msgid "RPC/WebUI Settings"
+msgstr "RPC/WebUI Indstillinger"
 
 msgid "Random Port"
 msgstr "Tilfældig Port"
@@ -412,14 +400,17 @@ msgstr "Tilfældig Port"
 msgid "Random Port on start."
 msgstr "Tilfældig Port ved start."
 
+msgid "Random high"
+msgstr "Vilkårlig høj"
+
+msgid "Random low"
+msgstr "Vilkårlig lav"
+
 msgid "Ratio"
 msgstr "Forhold"
 
 msgid "Ratio Limit"
 msgstr "Forholdsgrænse"
-
-msgid "reliability"
-msgstr "pålidelighed"
 
 msgid "Reload"
 msgstr "Genindlæs"
@@ -432,9 +423,6 @@ msgstr "Genoptag"
 
 msgid "Resuming selected item(s)"
 msgstr "Genoptager valgte emne(r)"
-
-msgid "RPC/WebUI Settings"
-msgstr "RPC/WebUI Indstillinger"
 
 msgid "Run a script at torrent completion."
 msgstr "Kør et script ved torrent færdiggørelse."
@@ -457,26 +445,26 @@ msgstr "Script der udføres efter torrent er færdig"
 msgid "Seed"
 msgstr "Seed"
 
+msgid "Seed Queue"
+msgstr "Seed Kø"
+
 msgid "Seeding"
 msgstr "Seeder"
 
 msgid "Seeding Limit"
 msgstr "Seed Grænse"
 
-msgid "Seed Queue"
-msgstr "Seed Kø"
-
 msgid "Server"
 msgstr "Server"
+
+msgid "Set verbosity of transmission messages."
+msgstr "Angiv informationsniveauet af transmission beskeder."
 
 msgid "Sets transmission's file mode creation mask."
 msgstr "Angiver transmissions fil-modus oprettelses maske."
 
 msgid "Settings"
 msgstr "Indstillinger"
-
-msgid "Set verbosity of transmission messages."
-msgstr "Angiv informationsniveauet af transmission beskeder."
 
 msgid "Shared folder"
 msgstr "Delt mappe"
@@ -493,11 +481,11 @@ msgstr "Hastighed"
 msgid "Stalled Minutes"
 msgstr "Stoppet Minutter"
 
-msgid "Start download"
-msgstr "Start download"
-
 msgid "Start Torrents"
 msgstr "Start Torrents"
+
+msgid "Start download"
+msgstr "Start download"
 
 msgid "Start torrents as soon as they are added."
 msgstr "Start torrents så snart de er tilføjet."
@@ -514,14 +502,11 @@ msgstr "Søndag"
 msgid "Sync frequency"
 msgstr "Synk frekvens"
 
-msgid "The peer connection encryption mode."
-msgstr "Peer forbindelses krypterings modus."
-
 msgid "The URL of the blocklist."
 msgstr "URLen af sortlisten."
 
-msgid "throughput"
-msgstr "kapacitet"
+msgid "The peer connection encryption mode."
+msgstr "Peer forbindelses krypterings modus."
 
 msgid "Thursday"
 msgstr "Torsdag"
@@ -568,6 +553,9 @@ msgstr "Turtle Mode upload hastighed. Værdi er i kb/s."
 msgid "UL-rate"
 msgstr "UL-rate"
 
+msgid "URL"
+msgstr "URL"
+
 msgid "Umask"
 msgstr "Ikke maskeret"
 
@@ -588,9 +576,6 @@ msgstr "Upload torrent"
 
 msgid "Uri"
 msgstr "Uri"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "Url to access RPC (http://localhost/&lt;URI&gt;/(rpc|web)."
 msgstr "Url at tilgå RPC (http://localhost/&lt;URI&gt;/(rpc|web)."
@@ -618,3 +603,18 @@ msgstr "Ugenligt"
 
 msgid "When enabled, this will toggle the Turtle Mode."
 msgstr "Når aktiveret, vil dettte skifte Turtle Modus."
+
+msgid "default"
+msgstr "standard"
+
+msgid "lowcost"
+msgstr "lav omkostninger"
+
+msgid "lowdelay"
+msgstr "lav forsinkelse"
+
+msgid "reliability"
+msgstr "pålidelighed"
+
+msgid "throughput"
+msgstr "kapacitet"

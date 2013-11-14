@@ -1,3 +1,9 @@
+openmediavault-transmissionbt (0.5.15) stable; urgency=low
+
+  * add locales
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 14 Nov 2013 11:51:07 -0500
+
 openmediavault-transmissionbt (0.5.14) stable; urgency=low
 
   * Bugfix release
