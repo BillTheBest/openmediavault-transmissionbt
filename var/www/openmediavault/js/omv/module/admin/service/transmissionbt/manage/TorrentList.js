@@ -40,7 +40,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
 
     autoReload              : true,
     rememberSelected        : true,
-    hidePagingToolbar       : true,
+    hidePagingToolbar       : false,
     hideAddButton           : true,
     hideEditButton          : true,
     pauseWaitMsg            : _("Pausing selected item(s)"),
