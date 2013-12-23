@@ -1,3 +1,9 @@
+openmediavault-transmissionbt (0.5.17) stable; urgency=low
+
+  * Update locales
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 23 Dec 2013 16:08:07 -0500
+
 openmediavault-transmissionbt (0.5.16) stable; urgency=low
 
   * Enable paging toolbar
