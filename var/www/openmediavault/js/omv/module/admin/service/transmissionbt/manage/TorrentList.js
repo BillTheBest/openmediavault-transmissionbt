@@ -107,7 +107,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
     },{
         header    : _("Queue"),
         sortable  : true,
-        dataIndex : "queuePosition",
+        dataIndex : "queuePosition"
     }],
 
     initComponent : function() {
@@ -151,7 +151,7 @@ Ext.define("OMV.module.admin.service.transmissionbt.manage.TorrentList", {
         me.callParent(arguments);
 
         me.on({
-            itemcontextmenu : me.onItemContextMenu,
+            itemcontextmenu : me.onItemContextMenu
         });
     },
 
